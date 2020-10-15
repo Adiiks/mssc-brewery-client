@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.adiks.msscbreweryclient.model.BeerDTO;
+import pl.adiks.msscbreweryclient.model.CustomerDTO;
 
 import java.net.URI;
 import java.util.UUID;
@@ -47,5 +48,38 @@ class BreweryClientTest {
     @Test
     void deleteBeer() {
         breweryClient.deleteBeer(UUID.randomUUID());
+    }
+
+    @Test
+    void getCustomerByID() {
+
+        CustomerDTO customerDTO = breweryClient.getCustomerByID(UUID.randomUUID());
+
+        assertNotNull(customerDTO);
+    }
+
+    @Test
+    void saveNewCustomer() {
+
+        CustomerDTO customerDTO = CustomerDTO.builder().name("New Customer").build();
+
+        URI uri = breweryClient.saveNewCustomer(customerDTO);
+
+        assertNotNull(uri);
+
+        System.out.println(uri.toString());
+    }
+
+    @Test
+    void updateCustomer() {
+
+        CustomerDTO customerDTO = CustomerDTO.builder().name("Updated Customer").build();
+
+        breweryClient.updateCustomer(UUID.randomUUID(), customerDTO);
+    }
+
+    @Test
+    void deleteCustomer() {
+        breweryClient.deleteCustomer(UUID.randomUUID());
     }
 }
